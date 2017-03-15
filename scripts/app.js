@@ -64,25 +64,37 @@ APP.Main = (function() {
   function onStoryData (key, details) {
 
     // This seems odd. Surely we could just select the story
-    // directly rather than looping through all of them.
+    // directly rather than looping through all of them. --- DONE
     var storyElements = document.querySelectorAll('.story');
 
-    for (var i = 0; i < storyElements.length; i++) {
+    var storyElement = document.getElementById("s-" + key);
 
-      if (storyElements[i].getAttribute('id') === 's-' + key) {
+    // for (var i = 0; i < storyElements.length; i++) {
 
-        details.time *= 1000;
-        var story = storyElements[i];
-        var html = storyTemplate(details);
-        story.innerHTML = html;
-        story.addEventListener('click', onStoryClick.bind(this, details));
-        story.classList.add('clickable');
+    //   if (storyElements[i].getAttribute('id') === 's-' + key) {
 
-        // Tick down. When zero we can batch in the next load.
-        storyLoadCount--;
+    //     details.time *= 1000;
+    //     var story = storyElements[i];
+    //     var html = storyTemplate(details);
+    //     story.innerHTML = html;
+    //     story.addEventListener('click', onStoryClick.bind(this, details));
+    //     story.classList.add('clickable');
 
-      }
-    }
+    //     // Tick down. When zero we can batch in the next load.
+    //     storyLoadCount--;
+
+    //   }
+    // }
+
+    details.time *= 1000;
+    var story = storyElement;
+    var html = storyTemplate(details);
+    story.innerHTML = html;
+    story.addEventListener('click', onStoryClick.bind(this, details));
+    story.classList.add('clickable');
+
+    // Tick down. When zero we can batch in the next load.
+    storyLoadCount--;
 
     // Colorize on complete.
     if (storyLoadCount === 0)
